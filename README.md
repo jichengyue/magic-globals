@@ -4,22 +4,31 @@ Similar to Magic Constants in PHP.  Useful for debugging.
 [![npm version](https://badge.fury.io/js/magic-globals.svg)](http://badge.fury.io/js/magic-globals)
 [![gluten](https://img.shields.io/badge/gluten-free-green.svg?style=flat)](http://i.imgur.com/Kua978a.jpg)
 
+## 注意事项
+以为考虑到使用V8引擎的Error.prepareStackTrace API会耗费V8的性能，测试调用此API耗时1毫秒，
+而且有可能导致内存溢出，或者引起其他不好的后果，导致系统运行不稳定，生产环境时MODEL就设置成
+生产模式。所以就添加了模式，有生产模式和调试模式，默认是调试模式通过setModel设置
+```
+var magic = require(magic-globals);
+magic.setModel(magic.DEBUG_MODEL);
+magic.setModel(magic.PRODUCTION_MODEL);
+```
 
 ## Usage
 ```js
 // require this module without assigning export
-require('magic-globals')
+require('magic-globals');
 
 // you may now use additional global objects,
 // in addition to built-ins: __filename and __dirname
-console.log(__filename) // /home/node/myapp/server/server.js
-console.log(__file) // server
-console.log(__line) // 6
-console.log(__fili) // /home/node/myapp/server/server.js:6
-console.log(__ext) // js
-console.log(__base) // /home/node/myapp
-console.log(__func) // someFunction or (anonymous) 
-console.log(__dirname) // /home/node/myapp/server
+console.log(__filename); // /home/node/myapp/server/server.js
+console.log(__file); // server
+console.log(__line); // 6
+console.log(__fili); // /home/node/myapp/server/server.js:6
+console.log(__ext); // js
+console.log(__base); // /home/node/myapp
+console.log(__func); // someFunction or (anonymous) 
+console.log(__dirname); // /home/node/myapp/server
 ```
 
 ## Credits
